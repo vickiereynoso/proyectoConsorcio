@@ -14,7 +14,12 @@ public class Departamento {
 		this.dniPropietario = dniPropietario;
 		this.nombrePropietario = nombrePropietario;
 	}
-
+	
+	public Departamento(int nroUnidad) {
+		super();
+		this.nroUnidad = nroUnidad;
+	}
+	
 	public int getNroUnidad() {
 		return nroUnidad;
 	}

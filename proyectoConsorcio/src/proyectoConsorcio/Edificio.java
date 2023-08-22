@@ -14,19 +14,28 @@ public class Edificio {
 		this.direccion = direccion;
 		this.cantDptos = cantDptos;
 		this.departamentos = new ArrayList<>();
-		this.morosos = new ArrayList<>();		
+		this.morosos = new ArrayList<>();	
+		
+		for(int i=0 ; i<=cantDptos; i++) {
+			this.departamentos.add(new Departamento(i));
+			System.out.println("Unidad "+i+ " creada.");
+			
+		}
 	}
 
 	public void habitarUnidad(int nroUnidad, String dniPropietario, String nombrePropietario) {
-		if(nroUnidad<0 || nroUnidad> this.departamentos.size()) {
-			System.out.println("Número de unidad inexistente.");	
-		}else if(buscarDpto(nroUnidad).getDniPropietario()== null && buscarDpto(nroUnidad).getNombrePropietario()== null) {
-			this.departamentos.add(new Departamento(nroUnidad, dniPropietario, nombrePropietario));
-			System.out.println("Alta de unidad exitosa!");
+		if(buscarDpto(nroUnidad)== null) {
+			System.out.println("Unidad inexistente.");	
+		}else if(buscarDpto(nroUnidad).getNroUnidad() == nroUnidad && buscarDpto(nroUnidad).getDniPropietario()== null && buscarDpto(nroUnidad).getNombrePropietario()== null) {
+			this.departamentos.get(nroUnidad).setDniPropietario(dniPropietario);
+			this.departamentos.get(nroUnidad).setNombrePropietario(nombrePropietario);
+			System.out.println("Alta de unidad exitosa! "+this.departamentos.get(nroUnidad));
 		}else {
 			System.out.println("La unidad se encuentra actualmente habitada.");
 			System.out.println("Estas otras unidades se encuentran libres:");
-			System.out.println(buscarUnidadesLibres());
+			for(Departamento d : buscarUnidadesLibres()) {
+				System.out.println(d);
+			}
 		}
 	}
 	
@@ -94,7 +103,7 @@ public class Edificio {
 	}
 	
 	private ArrayList<Departamento> buscarUnidadesLibres() {
-		ArrayList<Departamento> unidadesLibres = null;
+		ArrayList<Departamento> unidadesLibres = new ArrayList<>();
 		for(Departamento d : this.departamentos) {
 			if(d.getDniPropietario()== null && d.getNombrePropietario()==null && d.isMoroso()==false) {
 				unidadesLibres.add(d);
