@@ -53,7 +53,7 @@ public class Departamento {
 	}
 
 	public void setDeuda(double deuda) {
-		this.deuda =+ deuda;
+		this.deuda = this.deuda + deuda;
 	}
 
 	public void setMoroso(boolean moroso) {

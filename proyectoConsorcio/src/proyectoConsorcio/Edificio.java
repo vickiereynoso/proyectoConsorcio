@@ -41,16 +41,25 @@ public class Edificio {
 	
 	public void agregarDeuda(int nroUnidad, double importe) {
 		if(nroUnidad <0 || nroUnidad > this.departamentos.size()) {
-			System.out.println("Número de unidad inexistente.");	
+			System.out.println("Número de unidad erróneo.");	
 		}else if(importe < 0) {
 			System.out.println("El importe no puede ser negativo.");
 		}else if(buscarDpto(nroUnidad)==null){
 				System.out.println("La unidad no existe.");
+		}else if(buscarDpto(nroUnidad).getDniPropietario()==null && buscarDpto(nroUnidad).getNombrePropietario()==null) {
+			System.out.println("No se puede asignar deuda a un departamento no habitado.");
 		}else {
+			//System.out.println(buscarDpto(nroUnidad).getDeuda());
 			buscarDpto(nroUnidad).setMoroso(true);
+			//System.out.println("Deuda anterior $"+buscarDpto(nroUnidad).getDeuda());
 			buscarDpto(nroUnidad).setDeuda(importe);
-			this.morosos.add(buscarDpto(nroUnidad));
-			System.out.println("Deuda actualizada."+ "/n" + "La unidad " + nroUnidad+ " se encuentra ahora en la lista de morosos.");
+//			if(buscarMoroso(nroUnidad) == null) {
+//				this.morosos.add(buscarDpto(nroUnidad));
+//			}else {
+//				buscarMoroso(nroUnidad).setMoroso(true);
+//				//buscarMoroso(nroUnidad).setDeuda(importe);
+//			}
+			System.out.println("Deuda actualizada. Nueva deuda de $"+importe+" La unidad " + nroUnidad+ " se encuentra ahora en la lista de morosos. En total debe $"+buscarDpto(nroUnidad).getDeuda());
 		}
 		
 	}
@@ -63,21 +72,25 @@ public class Edificio {
 		}else if(buscarDpto(nroUnidad)==null){
 				System.out.println("La unidad no existe.");
 		}else {
+			//System.out.println("La unidad "+nroUnidad +" debe actualmente $"+buscarDpto(nroUnidad).getDeuda());
 			buscarDpto(nroUnidad).setDeuda(-(importe));
-			if(buscarDpto(nroUnidad).getDeuda() == 0){
-				buscarDpto(nroUnidad).setMoroso(false);
-				this.morosos.remove(nroUnidad);
-				System.out.println("Deuda actualizada.");
-				System.out.println("Su deuda actual es $"+ buscarDpto(nroUnidad).getDeuda());
-				System.out.println("La unidad "+nroUnidad + "ha sido removida de la lista de morosos.");
-			}
-			System.out.println("Deuda actualizada.");
-			System.out.println("Su deuda actual es $"+ buscarDpto(nroUnidad).getDeuda());
+			//System.out.println(buscarDpto(nroUnidad).getDeuda());
+//			buscarMoroso(nroUnidad).setDeuda(-(importe));
+//			if(buscarDpto(nroUnidad).getDeuda() == 0 && buscarMoroso(nroUnidad).getDeuda()==0){
+//				buscarDpto(nroUnidad).setMoroso(false);
+//				this.morosos.remove(nroUnidad);
+//				System.out.println("Deuda actualizada. Se registró un pago de $"+importe+" Su deuda actual es $"+ buscarDpto(nroUnidad).getDeuda()+" La unidad "+nroUnidad + " ha sido removida de la lista de morosos.");
+//			}else {
+//				System.out.println("Deuda actualizada. Se registró un pago de $"+importe+" La unidad "+nroUnidad +" aún debe $"+ buscarDpto(nroUnidad).getDeuda());
+//			}
+			System.out.println("Deuda actualizada. Se registró un pago de $"+importe+" La unidad "+nroUnidad +" aún debe $"+ buscarDpto(nroUnidad).getDeuda());
+
 		}		
 	}
 	
 	public void listarMorosos() {
 		for(Departamento d: this.morosos) {
+			System.out.println("Deudores:");
 			System.out.println(d);
 		}
 	}
@@ -95,6 +108,20 @@ public class Edificio {
 		while(i<this.departamentos.size() && dptoBuscado==null) {
 			if(this.departamentos.get(i).getNroUnidad() == nroUnidad) {
 				dptoBuscado = this.departamentos.get(i);
+			}else {
+				i++;
+			}
+		}
+		return dptoBuscado;
+	}
+	
+	
+	private Departamento buscarMoroso(int nroUnidad) {
+		Departamento dptoBuscado = null;
+		int i = 0;
+		while(i<this.morosos.size() && dptoBuscado==null) {
+			if(this.morosos.get(i).getNroUnidad() == nroUnidad) {
+				dptoBuscado = this.morosos.get(i);
 			}else {
 				i++;
 			}
