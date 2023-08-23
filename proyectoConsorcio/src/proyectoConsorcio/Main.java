@@ -34,7 +34,19 @@ public class Main {
 		System.out.println("");
 		e.listarMorosos();
 		System.out.println("");
-		
+		e.agregarDeuda(5, 4375);
+		e.agregarDeuda(3, 7777);
+		e.agregarDeuda(9, 8342);
+		System.out.println("");
+		e.listarMorosos();
+		System.out.println("");
+		e.agregarDeuda(5, 3000);
+		e.agregarDeuda(3, 2000);
+		e.agregarDeuda(9, 1001);
+		System.out.println("");
+		e.listarMorosos();
+		System.out.println("");
+		e.cancelarDeuda(5, 7375);
 	}
 
 }
