@@ -49,17 +49,20 @@ public class Edificio {
 		}else if(buscarDpto(nroUnidad).getDniPropietario()==null && buscarDpto(nroUnidad).getNombrePropietario()==null) {
 			System.out.println("No se puede asignar deuda a un departamento no habitado.");
 		}else {
-			//System.out.println(buscarDpto(nroUnidad).getDeuda());
 			buscarDpto(nroUnidad).setMoroso(true);
-			//System.out.println("Deuda anterior $"+buscarDpto(nroUnidad).getDeuda());
 			buscarDpto(nroUnidad).setDeuda(importe);
-//			if(buscarMoroso(nroUnidad) == null) {
-//				this.morosos.add(buscarDpto(nroUnidad));
-//			}else {
-//				buscarMoroso(nroUnidad).setMoroso(true);
-//				//buscarMoroso(nroUnidad).setDeuda(importe);
-//			}
+			if(buscarMoroso(nroUnidad) == null) {
+				this.morosos.add(new Departamento(buscarDpto(nroUnidad).getNroUnidad(),buscarDpto(nroUnidad).getDniPropietario(),buscarDpto(nroUnidad).getNombrePropietario()));
+				buscarMoroso(nroUnidad).setMoroso(true);
+				buscarMoroso(nroUnidad).setDeuda(importe);
+			}
+			else {
+				buscarMoroso(nroUnidad).setMoroso(true);
+				buscarMoroso(nroUnidad).setDeuda(importe);
+			}
 			System.out.println("Deuda actualizada. Nueva deuda de $"+importe+" La unidad " + nroUnidad+ " se encuentra ahora en la lista de morosos. En total debe $"+buscarDpto(nroUnidad).getDeuda());
+			//System.out.println("Deuda actualizada. Nueva deuda de $"+importe+" La unidad " + nroUnidad+ " se encuentra ahora en la lista de morosos. En total debe $"+buscarMoroso(nroUnidad).getDeuda());
+
 		}
 		
 	}
@@ -72,19 +75,15 @@ public class Edificio {
 		}else if(buscarDpto(nroUnidad)==null){
 				System.out.println("La unidad no existe.");
 		}else {
-			//System.out.println("La unidad "+nroUnidad +" debe actualmente $"+buscarDpto(nroUnidad).getDeuda());
 			buscarDpto(nroUnidad).setDeuda(-(importe));
-			//System.out.println(buscarDpto(nroUnidad).getDeuda());
-//			buscarMoroso(nroUnidad).setDeuda(-(importe));
-//			if(buscarDpto(nroUnidad).getDeuda() == 0 && buscarMoroso(nroUnidad).getDeuda()==0){
-//				buscarDpto(nroUnidad).setMoroso(false);
-//				this.morosos.remove(nroUnidad);
-//				System.out.println("Deuda actualizada. Se registró un pago de $"+importe+" Su deuda actual es $"+ buscarDpto(nroUnidad).getDeuda()+" La unidad "+nroUnidad + " ha sido removida de la lista de morosos.");
-//			}else {
-//				System.out.println("Deuda actualizada. Se registró un pago de $"+importe+" La unidad "+nroUnidad +" aún debe $"+ buscarDpto(nroUnidad).getDeuda());
-//			}
-			System.out.println("Deuda actualizada. Se registró un pago de $"+importe+" La unidad "+nroUnidad +" aún debe $"+ buscarDpto(nroUnidad).getDeuda());
-
+			buscarMoroso(nroUnidad).setDeuda(-(importe));
+			if(buscarDpto(nroUnidad).getDeuda() == 0 && buscarMoroso(nroUnidad).getDeuda()==0){
+				buscarDpto(nroUnidad).setMoroso(false);
+				this.morosos.remove(nroUnidad);
+				System.out.println("Deuda actualizada. Se registró un pago de $"+importe+" Su deuda actual es $"+ buscarDpto(nroUnidad).getDeuda()+" La unidad "+nroUnidad + " ha sido removida de la lista de morosos.");
+			}else {
+				System.out.println("Deuda actualizada. Se registró un pago de $"+importe+" La unidad "+nroUnidad +" aún debe $"+ buscarDpto(nroUnidad).getDeuda());
+			}
 		}		
 	}
 	
