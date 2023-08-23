@@ -79,7 +79,7 @@ public class Edificio {
 			buscarMoroso(nroUnidad).setDeuda(-(importe));
 			if(buscarDpto(nroUnidad).getDeuda() == 0 && buscarMoroso(nroUnidad).getDeuda()==0){
 				buscarDpto(nroUnidad).setMoroso(false);
-				this.morosos.remove(nroUnidad);
+				this.morosos.remove(buscarMoroso(nroUnidad));
 				System.out.println("Deuda actualizada. Se registró un pago de $"+importe+" Su deuda actual es $"+ buscarDpto(nroUnidad).getDeuda()+" La unidad "+nroUnidad + " ha sido removida de la lista de morosos.");
 			}else {
 				System.out.println("Deuda actualizada. Se registró un pago de $"+importe+" La unidad "+nroUnidad +" aún debe $"+ buscarDpto(nroUnidad).getDeuda());

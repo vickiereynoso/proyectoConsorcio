@@ -27,8 +27,8 @@ public class Main {
 		System.out.println("");
 		e.listarMorosos();
 		System.out.println("");
-		e.cancelarDeuda(1, 100);
-		e.cancelarDeuda(1, 2200);
+		e.cancelarDeuda(1, 300);
+		e.cancelarDeuda(1, 5000);
 		//e.agregarDeuda(1, 5000);
 		e.agregarDeuda(2, 300); //Tiene que dar error. No se puede asignar deuda a un dpto no habitado.
 		System.out.println("");
